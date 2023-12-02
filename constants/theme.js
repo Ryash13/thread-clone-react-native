@@ -53,4 +53,13 @@ const SHADOWS = {
   },
 };
 
-export { COLORS, SIZES, SHADOWS };
+const skeletonProp = {
+  colorMode: "light",
+  backgroundColor: "#D4D4D4",
+  transition: {
+    type: "timing",
+    duration: 3000,
+  },
+};
+
+export { COLORS, SIZES, SHADOWS, skeletonProp };

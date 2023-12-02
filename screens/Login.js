@@ -7,20 +7,46 @@ import {
   TextInput,
   TouchableOpacity,
   Pressable,
+  Alert,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import tw from "twrnc";
 import { MaterialIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 import { Branding } from "../components";
-import { SHADOWS, COLORS, SIZES } from "../constants/theme";
-import { useNavigation } from "@react-navigation/native";
+import { COLORS, SIZES } from "../constants/theme";
+import axios from "../api/axiosState";
+import { LOGIN_API } from "@env";
+import StorageService from "../utils/StorageService";
+import { AuthContext } from "../utils/AuthContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassowrd] = useState("");
 
+  const { loggedInUser, setLoggedInUser } = useContext(AuthContext);
+
   const navigation = useNavigation();
+
+  const handleLogin = () => {
+    const data = {
+      email: email,
+      password: password,
+    };
+    axios
+      .post(`${LOGIN_API}`, data)
+      .then((response) => {
+        Alert.alert("SUCCESS", "Logged In Successfully");
+        StorageService.setLoggedInUserInStorage(response.data);
+        StorageService.setAuthTokenInStorage(response.data?.token);
+        setLoggedInUser(response.data);
+      })
+      .catch((error) => {
+        console.log("Error Occured while logging in", error);
+        Alert.alert("FAILED", "Error occured while logging in");
+      });
+  };
 
   return (
     <SafeAreaView style={tw`mt-10`}>
@@ -65,7 +91,7 @@ const Login = () => {
           </View>
         </View>
         <View style={tw`mt-16 justify-center items-center`}>
-          <TouchableOpacity style={styles.loginBtn}>
+          <TouchableOpacity style={styles.loginBtn} onPress={handleLogin}>
             <Text style={styles.loginBtnText}>Login</Text>
           </TouchableOpacity>
           <Pressable
