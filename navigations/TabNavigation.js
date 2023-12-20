@@ -1,25 +1,57 @@
+import { Image } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons, AntDesign, FontAwesome } from "@expo/vector-icons";
+import { useContext } from "react";
 
-import { Home, Profile, Activity, Threads, Search } from "../screens";
+import { Home, Profile, Activity, Threads, Search } from "../screens/App";
+import { COLORS } from "../constants/theme";
+import { ThemeContext } from "../context/ThemeContext";
 
 const Tab = createBottomTabNavigator();
 
 const TabNavigation = () => {
+  const iconSize = 28;
+  const { theme } = useContext(ThemeContext);
+  let activeTheme = COLORS[theme];
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      initialRouteName="Home"
+      screenOptions={{
+        tabBarStyle: {
+          borderTopWidth: 0,
+          elevation: 0,
+          backgroundColor: activeTheme.background,
+        },
+        tabBarIconStyle: {
+          paddingBottom: 0,
+          textAlignVertical: "center",
+          textAlign: "center",
+        },
+      }}
+    >
       <Tab.Screen
         name="Home"
         component={Home}
         options={{
-          tabBarLabel: "Home",
-          tabBarLabelStyle: { color: "black" },
+          tabBarShowLabel: false,
           headerShown: false,
           tabBarIcon: ({ focused }) =>
             focused ? (
-              <Ionicons name="home" size={24} color="black" />
+              // <Octicons name="home" size={iconSize} color={COLORS.dark.black} />
+              <Image
+                source={require("../assets/Images/home_active.png")}
+                resizeMode="contain"
+                tintColor={activeTheme.icon}
+                width={24}
+                height={24}
+              />
             ) : (
-              <Ionicons name="home-outline" size={24} color="black" />
+              <Image
+                source={require("../assets/Images/home_gray.png")}
+                resizeMode="contain"
+                tintColor={"gray"}
+                width={24}
+                height={24}
+              />
             ),
         }}
       />
@@ -27,14 +59,25 @@ const TabNavigation = () => {
         name="Search"
         component={Search}
         options={{
-          tabBarLabel: "Search",
-          tabBarLabelStyle: { color: "black" },
+          tabBarShowLabel: false,
           headerShown: false,
           tabBarIcon: ({ focused }) =>
             focused ? (
-              <FontAwesome name="search" size={24} color="black" />
+              <Image
+                source={require("../assets/Images/search_active.png")}
+                resizeMode="contain"
+                tintColor={activeTheme.icon}
+                width={24}
+                height={24}
+              />
             ) : (
-              <AntDesign name="search1" size={24} color="black" />
+              <Image
+                source={require("../assets/Images/search_gray.png")}
+                resizeMode="contain"
+                tintColor={"gray"}
+                width={24}
+                height={24}
+              />
             ),
         }}
       />
@@ -42,14 +85,25 @@ const TabNavigation = () => {
         name="Threads"
         component={Threads}
         options={{
-          tabBarLabel: "Threads",
-          tabBarLabelStyle: { color: "black" },
+          tabBarShowLabel: false,
           headerShown: false,
           tabBarIcon: ({ focused }) =>
             focused ? (
-              <Ionicons name="create" size={24} color="black" />
+              <Image
+                source={require("../assets/Images/thread_active.png")}
+                resizeMode="contain"
+                tintColor={activeTheme.icon}
+                width={24}
+                height={24}
+              />
             ) : (
-              <Ionicons name="create-outline" size={24} color="black" />
+              <Image
+                source={require("../assets/Images/thread_gray.png")}
+                resizeMode="contain"
+                tintColor={"gray"}
+                width={24}
+                height={24}
+              />
             ),
         }}
       />
@@ -57,14 +111,25 @@ const TabNavigation = () => {
         name="Activity"
         component={Activity}
         options={{
-          tabBarLabel: "Activity",
-          tabBarLabelStyle: { color: "black" },
+          tabBarShowLabel: false,
           headerShown: false,
           tabBarIcon: ({ focused }) =>
             focused ? (
-              <AntDesign name="heart" size={24} color="black" />
+              <Image
+                source={require("../assets/Images/heart_active.png")}
+                resizeMode="contain"
+                tintColor={activeTheme.icon}
+                width={24}
+                height={24}
+              />
             ) : (
-              <AntDesign name="hearto" size={24} color="black" />
+              <Image
+                source={require("../assets/Images/heart_gray.png")}
+                resizeMode="contain"
+                tintColor={"gray"}
+                width={24}
+                height={24}
+              />
             ),
         }}
       />
@@ -72,16 +137,28 @@ const TabNavigation = () => {
         name="Profile"
         component={Profile}
         options={{
-          tabBarLabel: "Profile",
-          tabBarLabelStyle: { color: "black" },
+          tabBarShowLabel: false,
           headerShown: false,
           tabBarIcon: ({ focused }) =>
             focused ? (
-              <Ionicons name="person-sharp" size={24} color="black" />
+              <Image
+                source={require("../assets/Images/user_active.png")}
+                resizeMode="contain"
+                tintColor={activeTheme.icon}
+                width={24}
+                height={24}
+              />
             ) : (
-              <Ionicons name="person-outline" size={24} color="black" />
+              <Image
+                source={require("../assets/Images/user_gray.png")}
+                resizeMode="contain"
+                tintColor={"gray"}
+                width={24}
+                height={24}
+              />
             ),
         }}
+        tabBarIconStyle={{ alignItems: "center" }}
       />
     </Tab.Navigator>
   );

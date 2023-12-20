@@ -1,14 +1,30 @@
 const COLORS = {
-  primary: "#312651",
-  secondary: "#444262",
-  tertiary: "#FF7754",
-  textButton: "#007FFF",
-
-  gray: "#83829A",
-  gray2: "#C1C0C8",
-
-  white: "#F3F4F8",
-  lightWhite: "#FAFAFC",
+  light: {
+    textPrimary: "#000000",
+    textGray: "#A0A0A0",
+    inputBg: "#F2F2F2",
+    likeRed: "#EA333E",
+    buttonBorder: "#CDCDCD",
+    dividerBorder: "#F2F2F2",
+    btnBackground: "#0A0909",
+    btnText: "white",
+    background: "#FFFFFF",
+    icon: "black",
+    threadweb: "#A0A0A0",
+  },
+  dark: {
+    textPrimary: "#FFFFFF",
+    textGray: "#878787",
+    inputBg: "#0D0D0D",
+    likeRed: "#EA333E",
+    buttonBorder: "#3F3F3F",
+    dividerBorder: "#A0A0A0",
+    btnBackground: "#FFFFFF",
+    btnText: "black",
+    background: "#171717",
+    icon: "white",
+    threadweb: "#131313",
+  },
 };
 
 const SIZES = {
@@ -54,10 +70,8 @@ const SHADOWS = {
 };
 
 const skeletonProp = {
-  colorMode: "light",
-  backgroundColor: "#D4D4D4",
   transition: {
-    type: "timing",
+    type: "spring",
     duration: 3000,
   },
 };

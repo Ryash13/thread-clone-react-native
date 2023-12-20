@@ -18,6 +18,15 @@ const getAuthTokenFromStorage = async () => {
   return token;
 };
 
+const setSystemTheme = async (theme) => {
+  await AsyncStorage.setItem("theme", JSON.stringify(theme));
+};
+
+const getSystemThemeStored = async () => {
+  const theme = await AsyncStorage.getItem("theme");
+  return JSON.parse(theme);
+};
+
 const clearAllStorage = () => {
   AsyncStorage.clear();
 };
