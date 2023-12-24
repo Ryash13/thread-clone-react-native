@@ -13,8 +13,8 @@ const ProfileHeader = ({ openWebVersion, showBack, onPressBack }) => {
   return (
     <View>
       <Animated.View
-        layout={Layout}
-        entering={FadeIn.duration(1000)}
+        layout={Layout.damping(300)}
+        entering={FadeIn.duration(500)}
         style={tw`flex-row items-center justify-between mb-1`}
       >
         {!showBack ? (

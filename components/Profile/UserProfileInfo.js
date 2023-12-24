@@ -1,5 +1,4 @@
 import {
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
@@ -8,17 +7,18 @@ import {
   Dimensions,
   Linking,
 } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import tw from "twrnc";
 import { Skeleton } from "moti/skeleton";
 import Animated, { FadeIn, Layout } from "react-native-reanimated";
 import { MotiView } from "moti";
 
-import { skeletonProp } from "../../constants/theme";
+import { COLORS, skeletonProp } from "../../constants/theme";
 import { checkIfImageIsValid } from "../../utils";
 import ProfileHeader from "./ProfileHeader";
 import { USER_PLACEHOLDER_IMAGE } from "@env";
 import { useNavigation } from "@react-navigation/native";
+import { ThemeContext } from "../../context/ThemeContext";
 
 const UserProfileInfo = ({
   loading,
@@ -28,6 +28,9 @@ const UserProfileInfo = ({
   onPressUnfollow,
 }) => {
   const navigation = useNavigation();
+  const { theme } = useContext(ThemeContext);
+
+  let activeTheme = COLORS[theme];
 
   const openWebVersion = async () => {
     const url = "https://www.threads.net/";
@@ -56,7 +59,10 @@ const UserProfileInfo = ({
                 <Animated.Text
                   layout={Layout}
                   entering={FadeIn.duration(1000)}
-                  style={tw`font-bold text-2xl mt-2 uppercase`}
+                  style={[
+                    tw`font-bold text-2xl mt-2 uppercase`,
+                    { color: activeTheme.textPrimary },
+                  ]}
                 >
                   {user?.name}
                 </Animated.Text>
@@ -68,7 +74,10 @@ const UserProfileInfo = ({
                   <Animated.Text
                     layout={Layout}
                     entering={FadeIn.duration(1000)}
-                    style={tw`font-semibold text-lg`}
+                    style={[
+                      tw`font-semibold text-lg`,
+                      { color: activeTheme.textPrimary },
+                    ]}
                   >
                     {user?.username}
                   </Animated.Text>
@@ -77,9 +86,14 @@ const UserProfileInfo = ({
                 )}
                 {!loading ? (
                   <View
-                    style={tw` rounded-lg w-24 h-7 bg-gray-200 items-center justify-center`}
+                    style={[
+                      tw`rounded-lg w-24 h-7 items-center justify-center`,
+                      { backgroundColor: activeTheme.threadweb },
+                    ]}
                   >
-                    <Text style={[tw`text-center text-gray-400`]}>
+                    <Text
+                      style={[tw`text-center`, { color: activeTheme.textGray }]}
+                    >
                       threads.net
                     </Text>
                   </View>
@@ -116,17 +130,35 @@ const UserProfileInfo = ({
         <View style={tw`w-3/4`}>
           <MotiView style={tw`gap-2 mt-2`}>
             {!loading ? (
-              <Text numberOfLines={3} style={tw`leading-5`}>
+              <Text
+                numberOfLines={3}
+                style={[tw`leading-5`, { color: activeTheme.textPrimary }]}
+              >
                 Hi I am Yash raj, I am a software developer in Capgemini India
                 working on GE Vernova project
               </Text>
             ) : (
-              <Skeleton width={"100%"} height={15} {...skeletonProp} />
+              <Skeleton
+                colorMode={theme}
+                width={"100%"}
+                height={15}
+                {...skeletonProp}
+              />
             )}
             {loading ? (
               <>
-                <Skeleton width={"100%"} height={15} {...skeletonProp} />
-                <Skeleton width={"100%"} height={15} {...skeletonProp} />
+                <Skeleton
+                  colorMode={theme}
+                  width={"100%"}
+                  height={15}
+                  {...skeletonProp}
+                />
+                <Skeleton
+                  colorMode={theme}
+                  width={"100%"}
+                  height={15}
+                  {...skeletonProp}
+                />
               </>
             ) : null}
           </MotiView>
@@ -163,18 +195,32 @@ const UserProfileInfo = ({
             {!isFollowed ? (
               <TouchableOpacity
                 activeOpacity={0.5}
-                style={tw`p-2 mt-3 items-center justify-center bg-slate-800 rounded-md`}
+                style={[
+                  tw`p-2 mt-3 items-center justify-center rounded-md`,
+                  { backgroundColor: activeTheme.btnBackground },
+                ]}
                 onPress={onPressFollow}
               >
-                <Text style={tw`text-white font-semibold`}>Follow</Text>
+                <Text
+                  style={[tw`font-semibold`, { color: activeTheme.btnText }]}
+                >
+                  Follow
+                </Text>
               </TouchableOpacity>
             ) : (
               <TouchableOpacity
                 activeOpacity={0.5}
-                style={tw`p-2 mt-3 items-center justify-center bg-slate-800 rounded-md`}
+                style={[
+                  tw`p-2 mt-3 items-center justify-center rounded-md`,
+                  { backgroundColor: activeTheme.btnBackground },
+                ]}
                 onPress={onPressUnfollow}
               >
-                <Text style={tw`text-gray-300 font-semibold`}>Unfollow</Text>
+                <Text
+                  style={[tw`font-semibold`, { color: activeTheme.btnText }]}
+                >
+                  Unfollow
+                </Text>
               </TouchableOpacity>
             )}
           </View>

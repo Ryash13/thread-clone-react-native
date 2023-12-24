@@ -14,11 +14,16 @@ import tw from "twrnc";
 import UserThreads from "../../components/Profile/UserThreads";
 import UserReplies from "../../components/Profile/UserReplies";
 import { AuthContext } from "../../context/AuthContext";
+import { ThemeContext } from "../../context/ThemeContext";
+import { COLORS } from "../../constants/theme";
 
 const UserProfile = () => {
   const route = useRoute();
   const { userId, isFollowed } = route.params;
   const { loggedInUser } = useContext(AuthContext);
+  const { theme } = useContext(ThemeContext);
+
+  let activeTheme = COLORS[theme];
 
   const [loading, setLoading] = useState(false);
   const [threadsLoading, setThreadsLoading] = useState(true);
@@ -108,33 +113,35 @@ const UserProfile = () => {
   };
 
   return (
-    <SafeAreaView>
-      <UserProfileInfo
-        loading={loading}
-        user={user}
-        onPressFollow={followUser}
-        onPressUnfollow={unfollowUser}
-        isFollowed={isFollowed}
-      />
-      {!loading ? (
-        <View style={tw`mt-0`}>
-          <ProfileTabs
-            tabs={Tabs}
-            selectedTab={selectedTab}
-            setSelectedTab={setSelectedTab}
-          />
-        </View>
-      ) : null}
-      {!threadsLoading ? (
-        renderTabContent()
-      ) : (
-        <ActivityIndicator
-          style={tw`self-center mt-10`}
-          size={"large"}
-          color={"black"}
+    <View style={{ backgroundColor: activeTheme.background, height: "100%" }}>
+      <SafeAreaView>
+        <UserProfileInfo
+          loading={loading}
+          user={user}
+          onPressFollow={followUser}
+          onPressUnfollow={unfollowUser}
+          isFollowed={isFollowed}
         />
-      )}
-    </SafeAreaView>
+        {!loading ? (
+          <View style={tw`mt-0`}>
+            <ProfileTabs
+              tabs={Tabs}
+              selectedTab={selectedTab}
+              setSelectedTab={setSelectedTab}
+            />
+          </View>
+        ) : null}
+        {!threadsLoading ? (
+          renderTabContent()
+        ) : (
+          <ActivityIndicator
+            style={tw`self-center mt-10`}
+            size={"large"}
+            color={activeTheme.icon}
+          />
+        )}
+      </SafeAreaView>
+    </View>
   );
 };
 

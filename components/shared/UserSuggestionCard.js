@@ -27,7 +27,7 @@ const UserSuggestionCard = ({ user, skeleton }) => {
   );
 
   return (
-    <View style={tw`w-full rounded-md p-3 mb-3`}>
+    <View style={tw`w-full rounded-md p-4 mb-3`}>
       <Skeleton.Group show={true}>
         <TouchableOpacity onPress={onPressUser}>
           <View style={tw`flex-row items-center`}>
@@ -110,6 +110,11 @@ const UserSuggestionCard = ({ user, skeleton }) => {
           </View>
         </TouchableOpacity>
       </Skeleton.Group>
+      <View style={tw`ml-12 relative top-4`}>
+        <Text style={[{ color: activeTheme.textPrimary }, tw`absolute`]}>
+          11 Followers
+        </Text>
+      </View>
     </View>
   );
 };

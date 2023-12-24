@@ -68,9 +68,10 @@ const Threads = () => {
   return (
     <View
       style={[
-        tw`items-center`,
+        tw`items-center h-full`,
         {
           width: Dimensions.get("screen").width,
+          backgroundColor: activeTheme.background,
         },
       ]}
     >

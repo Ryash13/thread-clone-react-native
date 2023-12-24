@@ -95,8 +95,8 @@ const Profile = () => {
                 <MotiView style={tw`mt-2 gap-2`}>
                   {!loading ? (
                     <Animated.Text
-                      layout={Layout}
-                      entering={FadeIn.duration(1000)}
+                      layout={Layout.damping(300)}
+                      entering={FadeIn.duration(500)}
                       style={[
                         tw`font-bold text-2xl mt-2 uppercase`,
                         { color: activeTheme.textPrimary },
@@ -110,8 +110,8 @@ const Profile = () => {
                   <View style={tw`flex-row justify-between gap-2`}>
                     {!loading ? (
                       <Animated.Text
-                        layout={Layout}
-                        entering={FadeIn.duration(1000)}
+                        layout={Layout.damping(300)}
+                        entering={FadeIn.duration(500)}
                         style={[
                           tw`font-semibold text-lg`,
                           { color: activeTheme.textPrimary },
@@ -145,8 +145,8 @@ const Profile = () => {
 
               {!loading ? (
                 <Animated.Image
-                  layout={Layout}
-                  entering={FadeIn.duration(1500)}
+                  layout={Layout.damping(300)}
+                  entering={FadeIn.duration(500)}
                   style={tw`rounded-full`}
                   resizeMode="cover"
                   height={80}
@@ -178,12 +178,27 @@ const Profile = () => {
                     India working on GE Vernova project
                   </Text>
                 ) : (
-                  <Skeleton width={"100%"} height={15} {...skeletonProp} />
+                  <Skeleton
+                    colorMode={theme}
+                    width={"100%"}
+                    height={15}
+                    {...skeletonProp}
+                  />
                 )}
                 {loading ? (
                   <>
-                    <Skeleton width={"100%"} height={15} {...skeletonProp} />
-                    <Skeleton width={"100%"} height={15} {...skeletonProp} />
+                    <Skeleton
+                      colorMode={theme}
+                      width={"100%"}
+                      height={15}
+                      {...skeletonProp}
+                    />
+                    <Skeleton
+                      colorMode={theme}
+                      width={"100%"}
+                      height={15}
+                      {...skeletonProp}
+                    />
                   </>
                 ) : null}
               </MotiView>
@@ -191,30 +206,45 @@ const Profile = () => {
 
             {/* Number of Followers and Number of followings */}
             <Animated.View
-              layout={Layout}
-              entering={FadeIn.duration(1000)}
+              layout={Layout.damping(300)}
+              entering={FadeIn.duration(500)}
               style={tw`flex-row gap-4 items-center mt-3 pl-2`}
             >
-              <Skeleton width={75} height={15} {...skeletonProp}>
+              {!loading ? (
                 <TouchableOpacity>
                   <Text style={{ color: activeTheme.textGray }}>
                     {user?.followersCount} Followers
                   </Text>
                 </TouchableOpacity>
-              </Skeleton>
-              <Skeleton width={75} height={15} {...skeletonProp}>
+              ) : (
+                <Skeleton
+                  colorMode={theme}
+                  width={75}
+                  height={15}
+                  {...skeletonProp}
+                />
+              )}
+
+              {!loading ? (
                 <TouchableOpacity>
                   <Text style={{ color: activeTheme.textGray }}>
                     {user?.followingCount} Following
                   </Text>
                 </TouchableOpacity>
-              </Skeleton>
+              ) : (
+                <Skeleton
+                  colorMode={theme}
+                  width={75}
+                  height={15}
+                  {...skeletonProp}
+                />
+              )}
             </Animated.View>
 
             {/* Edit Profile and Share Profile Buttons */}
             <Animated.View
-              layout={Layout}
-              entering={FadeIn.duration(1000)}
+              layout={Layout.damping(300)}
+              entering={FadeIn.duration(500)}
               style={tw`mt-6 flex-row items-center justify-around`}
             >
               <TouchableOpacity

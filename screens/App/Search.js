@@ -124,10 +124,10 @@ const Search = () => {
         contentContainerStyle={{ paddingBottom: 20 }}
       >
         {userList?.map((user, index) => (
-          <>
+          <View key={index}>
             <UserSuggestionCard user={user} key={user.id} skeleton={loading} />
             {index !== userList.length - 1 && <Divider key={index} />}
-          </>
+          </View>
         ))}
       </ScrollView>
     </View>

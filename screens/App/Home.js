@@ -1,5 +1,4 @@
 import {
-  Platform,
   RefreshControl,
   SafeAreaView,
   ScrollView,
@@ -7,7 +6,6 @@ import {
   View,
 } from "react-native";
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { useNavigation } from "@react-navigation/native";
 import LottieView from "lottie-react-native";
 import tw from "twrnc";
 
@@ -19,7 +17,6 @@ import { COLORS } from "../../constants/theme";
 import Divider from "../../components/shared/Divider";
 
 const Home = () => {
-  const navigation = useNavigation();
   const animation = useRef(null);
 
   const { theme } = useContext(ThemeContext);
@@ -51,10 +48,10 @@ const Home = () => {
   return (
     <View style={[tw`h-full`, { backgroundColor: activeTheme.background }]}>
       <SafeAreaView>
-        {/* <Loader loading={loading} /> */}
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 2 }}
+          decelerationRate={1}
           style={[tw`mt-3 px-3`]}
           refreshControl={
             <RefreshControl
@@ -85,10 +82,28 @@ const Home = () => {
             />
           )}
           {threads.map((post, index) => (
-            <>
+            <View key={index}>
               <ThreadPost loading={loading} thread={post} key={post.id} />
               {index !== threads.length - 1 && <Divider key={index} />}
-            </>
+            </View>
+          ))}
+          {threads.map((post, index) => (
+            <View key={index}>
+              <ThreadPost loading={loading} thread={post} key={post.id} />
+              {index !== threads.length - 1 && <Divider key={index} />}
+            </View>
+          ))}
+          {threads.map((post, index) => (
+            <View key={index}>
+              <ThreadPost loading={loading} thread={post} key={post.id} />
+              {index !== threads.length - 1 && <Divider key={index} />}
+            </View>
+          ))}
+          {threads.map((post, index) => (
+            <View key={index}>
+              <ThreadPost loading={loading} thread={post} key={post.id} />
+              {index !== threads.length - 1 && <Divider key={index} />}
+            </View>
           ))}
         </ScrollView>
       </SafeAreaView>

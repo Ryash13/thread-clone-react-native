@@ -49,7 +49,7 @@ const StackNavigation = () => {
   }
   return (
     <NavigationContainer>
-      <StatusBar style="light" />
+      <StatusBar style={theme == "dark" ? "light" : "dark"} />
       <ThemeContext.Provider value={{ theme, setTheme }}>
         <AuthContext.Provider value={{ loggedInUser, setLoggedInUser }}>
           {!loggedInUser ? (
